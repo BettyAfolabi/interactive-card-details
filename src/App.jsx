@@ -3,7 +3,7 @@ import "./App.css";
 function App() {
   return (
     <>
-      <div className="bg-main bg-no-repeat bg-screen h-screen">
+      <div className="bg-[url('./bg-main-desktop.png')] bg-no-repeat bg-screen h-screen">
         <div className="pt-7">
           <div className="w-[18rem] h-[10rem] m-3 relative">
             <img src="./bg-card-back.png" alt="card back" />

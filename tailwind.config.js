@@ -4,8 +4,7 @@ export default {
   theme: {
     extend: {
       backgroundImage: {
-        main: "url('./bg-main-desktop.png')",
-        cardfront: "url('./bg-card-front.png')",
+        main: "url('public/bg-main-desktop.png')",
       },
     },
   },

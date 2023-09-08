@@ -6,15 +6,12 @@ function App() {
       <div className="bg-main bg-no-repeat bg-screen h-screen">
         <div className="pt-7">
           <div className="w-[18rem] h-[10rem] m-3 relative">
-            <img src="src\assets\images\bg-card-back.png" alt="card back" />
+            <img src="./bg-card-back.png" alt="card back" />
             <p className="absolute top-16 right-8 text-white text-sm">000</p>
           </div>
           <div className="w-[18rem] h-[10rem] relative mb-3">
-            <img src="src\assets\images\bg-card-front.png" className=" m-3" />
-            <img
-              src="src\assets\images\card-logo.svg"
-              className="absolute top-5 left-7 w-16"
-            />
+            <img src="./bg-card-front.png" className=" m-3" />
+            <img src="./card-logo.svg" className="absolute top-5 left-7 w-16" />
             <h1 className="absolute top-1/2 left-6 text-white text-2xl min-w-full ">
               0000 0000 0000 0000
             </h1>

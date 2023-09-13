@@ -1,40 +1,53 @@
-import "./App.css";
-
 function App() {
   return (
     <>
-      <div className="flex font-SpaceGrotesk tracking-wider">
-        <div className="relative w-3/6">
+      <div className="flex flex-col md:flex-row font-SpaceGrotesk tracking-wider">
+        <div className="relative mb-8 md:mb-0 w-full md:w-3/6">
           <img
             src="./bg-main-desktop.png"
             alt="background image"
-            className="h-screen"
+            className="hidden md:block h-full"
           />
-          <div className="absolute top-1/2 left-1/2">
-            <div className="w-80 relative mt-4">
+          <img
+            src="./bg-main-mobile.png"
+            alt="mobile background"
+            className="md:hidden w-full"
+          />
+          <div className="absolute top-14 right-7 md:top-1/2 md:left-1/2">
+            <div className="relative md:w-80 md:mt-4">
               <img src="./bg-card-back.png" alt="card back" />
-              <p className="absolute top-20 right-8 text-white text-sm">000</p>
+              <p className="absolute top-28 md:top-20 right-12 md:right-8 text-white text-sm">
+                000
+              </p>
             </div>
           </div>
-          <div className="absolute top-1/4 left-1/3">
-            <div className="relative mb-3 w-80">
+          <div className="absolute -bottom-11 left-3 md:top-1/4 md:left-1/3">
+            <div className="relative md:w-80 md:mb-3">
               <img src="./bg-card-front.png" />
               <img
                 src="./card-logo.svg"
-                className="absolute top-5 left-5 w-16"
+                className="absolute top-3 left-10 md:left-5 w-16"
               />
-              <h1 className="absolute top-1/2 left-6 text-white text-2xl min-w-full ">
+              <h1 className="absolute top-1/2 left-9 md:left-6 text-white text-2xl md:min-w-full ">
                 0000 0000 0000 0000
               </h1>
-              <p className="absolute bottom-4 left-5 text-white">Jane Doe</p>
-              <h3 className="absolute bottom-4 right-5 text-white">00/00</h3>
+              <p className="absolute bottom-4 left-11 md:left-5 text-white">
+                Jane Doe
+              </p>
+              <h3 className="absolute bottom-4 right-2 md:right-5 text-white">
+                00/00
+              </h3>
             </div>
           </div>
         </div>
-        <div className="bg-white p-5 mb-3 h-screen grid place-items-center w-full">
-          <form className="w-64 h-64 ">
-            <div className="my-5">
-              <label htmlFor="cardname" className="text-xs text-DarkerViolet ">
+
+        <div className="bg-white mt-9 px-9 md:mt-5 md:h-screen md:grid md:place-items-center md:w-screen ">
+          <form className="block mt-5 md:w-64 md:h-64">
+            <div className="my-6 md:my-5">
+              <label
+                htmlFor="cardname"
+                className="text-md md:text-xs text-DarkerViolet "
+              >
                 CARDHOLDER NAME
               </label>
               <input
@@ -42,13 +55,13 @@ function App() {
                 id="cardname"
                 name="cardname"
                 placeholder="e.g Jane Doe"
-                className="block rounded-lg border-solid border-Grey border px-3 py-2 w-80 mt-1"
+                className="block rounded-md border-solid border-Grey border px-4 py-3 md:py-2 md:w-80 mt-1 text-md md:text-sm p-4 w-full"
               />
             </div>
-            <div className="my-5">
+            <div className=" my-6 md:my-5">
               <label
                 htmlFor="cardnumber"
-                className="text-xs text-DarkerViolet "
+                className=" text-md md:text-xs text-DarkerViolet "
               >
                 CARD NUMBER
               </label>
@@ -57,36 +70,39 @@ function App() {
                 id="cardnumber"
                 name="cardnumber"
                 placeholder="e.g 0000 0000 0000 0000"
-                className="block rounded-lg border-solid border-Grey border px-3 py-2 w-80 mt-1"
+                className="block rounded-md border-solid border-Grey border px-4 py-3 md:py-2 w-full md:w-80 p-4 mt-1 text-md md:text-sm"
               />
             </div>
             <div className="flex my-5">
               <div>
                 <label
                   htmlFor="expirydate"
-                  className="text-xs text-DarkerViolet "
+                  className="text-md md:text-xs text-DarkerViolet "
                 >
                   EXP. DATE (MM/YY)
                 </label>
-                <div className="flex ">
+                <div className="flex">
                   <input
                     type="text"
                     id="month"
                     name="month"
                     placeholder="MM"
-                    className="block rounded-lg border-solid border-Grey border px-3 py-2 w-16 mr-2 mt-1"
+                    className="block rounded-md border-solid border-Grey border px-4 py-3 md:py-2 w-2/5 md:w-16 mr-4 md:mr-2 mt-1 text-md md:text-sm"
                   />
                   <input
                     type="text"
                     id="year"
                     name="year"
                     placeholder="YY"
-                    className="block rounded-lg border-solid border-Grey border px-3 py-2 w-16 mt-1"
+                    className="block rounded-md border-solid border-Grey border text-md md:text-sm px-4 py-3 md:py-2 w-2/5 md:w-16 mt-1"
                   />
                 </div>
               </div>
-              <div className="ml-6">
-                <label htmlFor="cvc" className="text-xs text-DarkerViolet ">
+              <div className="md:ml-6">
+                <label
+                  htmlFor="cvc"
+                  className="text-md md:text-xs text-DarkerViolet "
+                >
                   CVC
                 </label>
                 <input
@@ -94,11 +110,11 @@ function App() {
                   id="cvc"
                   name="cvc"
                   placeholder="e.g 123"
-                  className="block rounded-lg border-solid border-Grey border px-3 py-2 w-40 mt-1"
+                  className="block rounded-md border-solid border-Grey border text-md md:text-sm p-4 md:py-2 w-full md:w-40 mt-1"
                 />
               </div>
             </div>
-            <button className="bg-DarkerViolet text-white w-80 rounded-md p-2 text-base my-3">
+            <button className="bg-DarkerViolet text-white w-full md:w-80 rounded-md p-4 md:p-2 text-md md:text-base my-3">
               Confirm
             </button>
           </form>
@@ -114,13 +130,13 @@ function App() {
             <h3 className="text-DarkGrayViolet tracking-normal mb-2">
               We`ve added your card details
             </h3>
-            <button className="bg-DarkerViolet text-white w-80 rounded-md p-2 text-base mt-7">
+            <button className="bg-DarkerViolet text-white w-96 md:w-80 rounded-md py-4 md:p-2 text-md md:text-base mt-7">
               Continue
             </button>
           </div>
         </div>
       </div>
-      <div className="attribution bottom-0 text-xs text-center lg:mt-4 lg:text-White">
+      <div className="attribution bottom-0 text-xs text-center md:mt-4 ">
         Challenge by
         <a
           href="https://www.frontendmentor.io?ref=challenge"

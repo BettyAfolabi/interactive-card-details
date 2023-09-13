@@ -21,7 +21,7 @@ function App() {
               </p>
             </div>
           </div>
-          <div className="absolute -bottom-11 left-3 md:top-1/4 md:left-1/3">
+          <div className="absolute -bottom-11 left-3 md:top-1/4 md:left-1/3 md:mr-3">
             <div className="relative md:w-80 md:mb-3">
               <img src="./bg-card-front.png" />
               <img

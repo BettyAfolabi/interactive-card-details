@@ -208,7 +208,7 @@ function App() {
                     required: "Can't be blank",
                     pattern: {
                       value: /^\d{3}$/,
-                      message: "Wrong Format, numbers only (3 digits)",
+                      message: "3 digits only",
                     },
                   })}
                 />

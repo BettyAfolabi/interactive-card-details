@@ -14,6 +14,7 @@ export default {
       },
       textColor: {
         DarkerViolet: " hsl(278, 68%, 11%)",
+        Red: "hsl(0, 100%, 66%)",
       },
       fontFamily: {
         sans: ["Helvetica", "Arial", "sans-serif"],

@@ -1,7 +1,36 @@
+import { useEffect } from "react";
+import { useForm } from "react-hook-form";
+
 function App() {
+  const form = useForm({
+    defaultValues: {
+      cardname: "",
+      cardnumber: "",
+      expirydate: {
+        month: "",
+        year: "",
+      },
+      cvc: "",
+    },
+    mode: "onTouched",
+  });
+
+  const { register, handleSubmit, reset, formState } = form;
+  const { errors, isSubmitSuccessful, isSubmitting } = formState;
+
+  const onError = (errors) => {
+    console.log("Form Errors", errors);
+  };
+
+  useEffect(() => {
+    if (isSubmitSuccessful) {
+      reset();
+    }
+  }, [isSubmitSuccessful, reset]);
+
   return (
     <>
-      <div className="flex flex-col md:flex-row font-SpaceGrotesk tracking-wider">
+      <div className="border-box flex flex-col md:flex-row font-SpaceGrotesk tracking-wider">
         <div className="relative mb-8 md:mb-0 w-full md:w-3/6">
           <img
             src="./bg-main-desktop.png"
@@ -13,16 +42,16 @@ function App() {
             alt="mobile background"
             className="md:hidden w-full"
           />
-          <div className="absolute top-14 right-7 md:top-1/2 md:left-1/2">
-            <div className="relative md:w-80 md:mt-4">
+          <div className="absolute top-14 right-7 md:top-1/2 md:left-2/3">
+            <div className="relative md:w-80">
               <img src="./bg-card-back.png" alt="card back" />
               <p className="absolute top-28 md:top-20 right-12 md:right-8 text-white text-sm">
                 000
               </p>
             </div>
           </div>
-          <div className="absolute -bottom-11 left-3 md:top-1/4 md:left-1/3 md:mr-3">
-            <div className="relative md:w-80 md:mb-3">
+          <div className="absolute -bottom-11 left-3 md:top-1/4 md:left-1/2 md:mr-3">
+            <div className="relative md:w-80">
               <img src="./bg-card-front.png" />
               <img
                 src="./card-logo.svg"
@@ -41,8 +70,12 @@ function App() {
           </div>
         </div>
 
-        <div className="bg-white mt-9 px-9 md:mt-5 md:h-screen md:grid md:place-items-center md:w-screen ">
-          <form className="block mt-5 md:w-64 md:h-64">
+        <div className="bg-white mt-9 px-9 md:mt-0 md:h-screen md:grid md:place-items-center md:w-screen">
+          <form
+            onSubmit={handleSubmit(onError)}
+            noValidate
+            className="block mt-5 md:w-64"
+          >
             <div className="my-6 md:my-5">
               <label
                 htmlFor="cardname"
@@ -50,13 +83,27 @@ function App() {
               >
                 CARDHOLDER NAME
               </label>
+
               <input
                 type="text"
                 id="cardname"
                 name="cardname"
                 placeholder="e.g Jane Doe"
-                className="block rounded-md border-solid border-Grey border px-4 py-3 md:py-2 md:w-80 mt-1 text-md md:text-sm p-4 w-full"
+                className={`w-full block rounded-md border ${
+                  errors.cardname ? "border-Red" : "border-LightGrayViolet"
+                } hover:border-Violet focus:outline-none focus:border-Violet px-4 py-3 md:py-2 w-full md:w-80 p-4 mt-1 text-md md:text-sm`}
+                {...register("cardname", {
+                  required: "Can't be blank",
+                  pattern: {
+                    value: /^[a-zA-Z]+$/,
+                    message: "Letters Only",
+                  },
+                })}
               />
+
+              <p className="text-Red text-xs tracking-normal">
+                {errors.cardname?.message}
+              </p>
             </div>
             <div className=" my-6 md:my-5">
               <label
@@ -66,12 +113,24 @@ function App() {
                 CARD NUMBER
               </label>
               <input
-                type="number"
+                type="text"
                 id="cardnumber"
                 name="cardnumber"
                 placeholder="e.g 0000 0000 0000 0000"
-                className="block rounded-md border-solid border-Grey border px-4 py-3 md:py-2 w-full md:w-80 p-4 mt-1 text-md md:text-sm"
+                className={`w-full block rounded-md border ${
+                  errors.cardnumber ? "border-Red" : "border-LightGrayViolet"
+                } hover:border-Violet focus:outline-none focus:border-Violet px-4 py-3 md:py-2 w-full md:w-80 p-4 mt-1 text-md md:text-sm`}
+                {...register("cardnumber", {
+                  required: "Can't be blank",
+                  pattern: {
+                    value: /^\d{4}\s\d{4}\s\d{4}\s\d{4}$/,
+                    message: "Wrong Format, numbers only (16 digits)",
+                  },
+                })}
               />
+              <p className="text-Red text-xs tracking-normal">
+                {errors.cardnumber?.message}
+              </p>
             </div>
             <div className="flex my-5">
               <div>
@@ -82,20 +141,52 @@ function App() {
                   EXP. DATE (MM/YY)
                 </label>
                 <div className="flex">
-                  <input
-                    type="text"
-                    id="month"
-                    name="month"
-                    placeholder="MM"
-                    className="block rounded-md border-solid border-Grey border px-4 py-3 md:py-2 w-2/5 md:w-16 mr-4 md:mr-2 mt-1 text-md md:text-sm"
-                  />
-                  <input
-                    type="text"
-                    id="year"
-                    name="year"
-                    placeholder="YY"
-                    className="block rounded-md border-solid border-Grey border text-md md:text-sm px-4 py-3 md:py-2 w-2/5 md:w-16 mt-1"
-                  />
+                  <div className="flex flex-col">
+                    <input
+                      type="number"
+                      id="month"
+                      name="month"
+                      placeholder="MM"
+                      className={`block rounded-md border ${
+                        errors.expirydate?.month
+                          ? "border-Red"
+                          : "border-LightGrayViolet"
+                      } hover:border-Violet focus:outline-none focus:border-Violet px-4 py-3 md:py-2 w-2/5 md:w-20 mr-4 md:mr-2 mt-1 text-md md:text-sm`}
+                      {...register("expirydate.month", {
+                        required: "Can't be blank",
+                        pattern: {
+                          value: /^(0[1-9]|1[0-2])$/,
+                          message: "enter 2 digits from 01-12",
+                        },
+                      })}
+                    />
+                    <p className="text-Red text-xs tracking-normal">
+                      {errors.expirydate?.month?.message}
+                    </p>
+                  </div>
+                  <div className="flex flex-col">
+                    <input
+                      type="number"
+                      id="year"
+                      name="year"
+                      placeholder="YY"
+                      className={`block rounded-md border ${
+                        errors.expirydate?.year
+                          ? "border-Red"
+                          : "border-LightGrayViolet"
+                      } hover:border-Violet focus:outline-none focus:border-Violet px-4 py-3 md:py-2 w-2/5 md:w-20 mr-4 md:mr-2 mt-1 text-md md:text-sm`}
+                      {...register("expirydate.year", {
+                        required: "Can't be blank",
+                        pattern: {
+                          value: /^\d{2}$/,
+                          message: "only 2 digits allowed",
+                        },
+                      })}
+                    />
+                    <p className="text-Red text-xs tracking-normal">
+                      {errors.expirydate?.year?.message}
+                    </p>
+                  </div>
                 </div>
               </div>
               <div className="md:ml-6">
@@ -110,14 +201,30 @@ function App() {
                   id="cvc"
                   name="cvc"
                   placeholder="e.g 123"
-                  className="block rounded-md border-solid border-Grey border text-md md:text-sm p-4 md:py-2 w-full md:w-40 mt-1"
+                  className={`block rounded-md border ${
+                    errors.cvc ? "border-Red" : "border-LightGrayViolet"
+                  } hover:border-Violet focus:outline-none focus:border-Violet text-md md:text-sm p-4 md:py-2 w-full md:w-32 mt-1`}
+                  {...register("cvc", {
+                    required: "Can't be blank",
+                    pattern: {
+                      value: /^\d{3}$/,
+                      message: "Wrong Format, numbers only (3 digits)",
+                    },
+                  })}
                 />
+                <p className="text-Red text-xs tracking-normal">
+                  {errors.cvc?.message}
+                </p>
               </div>
             </div>
-            <button className="bg-DarkerViolet text-white w-full md:w-80 rounded-md p-4 md:p-2 text-md md:text-base my-3">
+            <button
+              disabled={isSubmitting}
+              className="bg-DarkerViolet hover:bg-Violet text-white w-full md:w-80 rounded-md p-4 md:p-2 text-md md:text-base my-3"
+            >
               Confirm
             </button>
           </form>
+
           <div className="p-5 text-center hidden">
             <img
               src="./icon-complete.svg"
@@ -130,7 +237,7 @@ function App() {
             <h3 className="text-DarkGrayViolet tracking-normal mb-2">
               We`ve added your card details
             </h3>
-            <button className="bg-DarkerViolet text-white w-96 md:w-80 rounded-md py-4 md:p-2 text-md md:text-base mt-7">
+            <button className="bg-DarkerViolet hover:bg-Violet text-white w-96 md:w-80 rounded-md py-4 md:p-2 text-md md:text-base mt-7">
               Continue
             </button>
           </div>
@@ -152,6 +259,7 @@ function App() {
         </a>
         .
       </div>
+      {/* /(`^(?:${currentYear}|20\d{2}|2[1-9]\d{2})$`)/, */}
     </>
   );
 }
